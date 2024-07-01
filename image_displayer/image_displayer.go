@@ -2,6 +2,8 @@ package imagedisplayer
 
 import "fmt"
 
-func Test(){
-    fmt.Println("hehidfso")
+func PrintImageToScreen(asciiImage string) error{
+    _, err := fmt.Printf(asciiImage)
+    return err
 }
+
