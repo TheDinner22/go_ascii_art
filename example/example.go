@@ -3,7 +3,11 @@ package main
 import (
     imageReader "github.com/TheDinner22/image_reader"
     imageDisplayer "github.com/TheDinner22/terminal_image_displayer"
+    imageProcessor "todo.com/iNeedToMakeARepoForThis"
 )
+
+func Processor(){
+}
 
 func displayer(){
     imageDisplayer.Test()
