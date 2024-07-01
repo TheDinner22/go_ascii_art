@@ -7,3 +7,6 @@ func PrintImageToScreen(asciiImage string) error{
     return err
 }
 
+func Test(){
+    fmt.Println("displayer")
+}

@@ -6,6 +6,7 @@ import (
 	_ "image/png"
 	_ "image/jpeg"
 	"os"
+    "fmt"
 )
 
 func LoadFromFile(filename string) (image.Image, error){
@@ -17,4 +18,8 @@ func LoadFromFile(filename string) (image.Image, error){
 
 	image, _, err := image.Decode(f)
 	return image, err
+}
+
+func Test(){
+    fmt.Println("reader")
 }
