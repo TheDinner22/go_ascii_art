@@ -6,21 +6,23 @@ import (
     imageProcessor "github.com/TheDinner22/go_ascii_art/image_processor"
 )
 
-func processor(){
-    imageProcessor.Test()
-}
-
-func displayer(){
-    imageDisplayer.Test()
-}
-
-func reader(){
-    //imageReader.LoadFromFile("images/thing.png")
-    imageReader.Test()
-}
-
 func main(){
-    displayer()
-    reader()
-    processor()
+    img, err := imageReader.LoadFromFile("images/UF.png")
+    if err != nil {
+        panic(err.Error())
+    }
+
+    bm, err := imageProcessor.GetBrightnessMatrix(img)
+
+    if err != nil {
+        panic(err.Error())
+    }
+
+    runes := imageProcessor.MapBrightnessMatrixToChars(bm)
+
+    err = imageDisplayer.PrintImageToScreen(runes)
+
+    if err != nil {
+        panic(err.Error())
+    }
 }
