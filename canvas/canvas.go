@@ -25,7 +25,7 @@ func FitImageToCanvas(img image.Image, canvas Canvas) [][]float64 {
 
     // if the image is too big, resize it
 	if !(imageHeightSmallerThanCanvasHeight && imageWidthSmallerThanCanvasWidth) {
-        img = resize.Resize(uint(canvasWidth), 0, img, resize.Lanczos3)
+        img = resize.Resize(uint(canvasWidth), uint(canvasHeight), img, resize.NearestNeighbor)
 	}
 
     // convert image to a slice (each element is a char to be printed)
@@ -45,7 +45,7 @@ func imageToSlice(img image.Image) [][]float64 {
 	for i := 0; i < imgHeight; i++ {
 		row := make([]float64, imgWidth)
 		for j := 0; j < imgWidth; j++ {
-			r, g, b, _ := img.At(i, j).RGBA()
+			r, g, b, _ := img.At(j, i).RGBA()
 			average_color := (float64(r) + float64(b) + float64(g)) / float64(3)
 			normalized_average_color := average_color / MAX_COLOR_VALUE
 			row[j] = normalized_average_color
