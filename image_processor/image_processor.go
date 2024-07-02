@@ -21,7 +21,8 @@ func GetBrightnessMatrix(img image.Image) ([][]float64, error) {
 		for j := 0; j < width; j++ {
 			r, g, b, _ := img.At(i, j).RGBA()
 			average_brightness := (float64(r) + float64(g) + float64(b)) / float64(3)
-			normalized_average_brightness := average_brightness / float64(255)
+            max_uint32 := ^uint32(0)
+			normalized_average_brightness := average_brightness / float64(max_uint32)
 			row[j] = normalized_average_brightness // ranges from 0-1 inclusive
 		}
 		brightnessMatrix[i] = row
