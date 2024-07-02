@@ -10,7 +10,7 @@ func PrintImageToScreen(asciiImage [][]rune) error {
 
 	for _, row := range asciiImage {
 		for _, char := range row {
-			_, err := fmt.Print(char)
+			_, err := fmt.Printf(string(char))
 			if err != nil {
 				return err
 			}
