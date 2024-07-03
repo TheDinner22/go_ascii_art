@@ -2,3 +2,12 @@ helper links here
 
 how does ascii art work??:
 https://medium.com/@shubham0473/unleash-your-inner-artist-a-step-by-step-guide-to-converting-images-to-ascii-art-using-java-97860464f19a#:~:text=Essentially%2C%20we%20replace%20each%20pixel,color%2Dby%2Dnumber%20painting.
+
+todos:
+- gif
+- other output methods
+- optimization
+- on the fly terminal tweaking
+- different character schemes
+- different brightness functions
+- switch between or pick from differnt resizing options

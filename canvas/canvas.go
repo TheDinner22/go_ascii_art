@@ -25,7 +25,7 @@ func FitImageToCanvas(img image.Image, canvas Canvas) [][]float64 {
 
     // if the image is too big, resize it
 	if !(imageHeightSmallerThanCanvasHeight && imageWidthSmallerThanCanvasWidth) {
-        img = resize.Resize(uint(canvasWidth), uint(canvasHeight), img, resize.NearestNeighbor)
+        img = resize.Resize(uint(canvasWidth), 0, img, resize.NearestNeighbor)
 	}
 
     // convert image to a slice (each element is a char to be printed)

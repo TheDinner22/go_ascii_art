@@ -8,7 +8,10 @@ import (
 )
 
 func main(){
-    img, err := imageReader.LoadFromFile("images/UF.png")
+    //img, err := imageReader.LoadFromFile("images/UF.png")
+    //img, err := imageReader.LoadFromFile("images/mom.jpg")
+    //img, err := imageReader.LoadFromFile("images/dog.jpg")
+    img, err := imageReader.LoadFromFile("images/mon.jpeg")
     if err != nil {
         panic(err.Error())
     }
