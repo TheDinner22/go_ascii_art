@@ -11,7 +11,9 @@ func main(){
     //img, err := imageReader.LoadFromFile("images/UF.png")
     //img, err := imageReader.LoadFromFile("images/mom.jpg")
     //img, err := imageReader.LoadFromFile("images/dog.jpg")
-    img, err := imageReader.LoadFromFile("images/mon.jpeg")
+    //img, err := imageReader.LoadFromFile("images/mon.jpeg")
+    //img, err := imageReader.LoadFromFile("images/goku.jpeg")
+    img, err := imageReader.LoadFromFile("images/builder.jpeg")
     if err != nil {
         panic(err.Error())
     }
@@ -21,7 +23,7 @@ func main(){
 
     chars := imageProcessor.MapBrightnessMatrixToChars(bm)
 
-    err = imageDisplayer.PrintImageToScreen(chars)
+    err = imageDisplayer.PrintImageToScreen(chars, term.Writer())
     if err != nil {
         panic(err.Error())
     }
