@@ -11,3 +11,4 @@ todos:
 - different character schemes
 - different brightness functions
 - switch between or pick from differnt resizing options
+- color grouping or ignoring
