@@ -1,25 +1,26 @@
 package imagedisplayer
 
-import "fmt"
-import "errors"
+import (
+	"errors"
+	"fmt"
+	"io"
+)
 
-func PrintImageToScreen(asciiImage [][]rune) error {
-	if asciiImage == nil {
-		return errors.New("slice of images was nil!?")
+func PrintImageToScreen(asciiImage [][]rune, writer io.Writer) error {
+	if asciiImage == nil || writer == nil {
+		return errors.New("args were nil")
 	}
 
 	for _, row := range asciiImage {
-		for _, char := range row {
-			_, err := fmt.Print(string(char))
-			if err != nil {
-				return err
-			}
-		}
-		println("")
+            bs := []byte(string(row))
+            _, err := writer.Write(bs)
+            if err != nil {
+                return err
+            }
+            writer.Write([]byte(string("\n")))
 	}
 
 	return nil
-
 }
 
 func Test() {
