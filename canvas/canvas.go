@@ -11,32 +11,32 @@ import (
 
 // so you can make your own versions of this for different outputs but one for the terminal is made for you
 type Canvas interface {
-	WidthHeight() (int, int)
+	WidthHeight() (uint, uint)
 	Writer() io.Writer
 }
 
+// custom canvas (why would you do this)
+// uses the args and a writer provided by someone (god ig)
 type ArgCanvas struct {
     args cli.Args
     writer io.Writer
 }
 
-func (argCanvas ArgCanvas) WidthHeight() (int, int) {
-	width, height, err := term.GetSize(int(os.Stdout.Fd()))
-	if err != nil {
-		panic(err.Error())
-	}
+func (argCanvas ArgCanvas) WidthHeight() (uint, uint) {
+    width := argCanvas.args.Width
+    height := argCanvas.args.Height
 	return width, height
 }
 
 func (argCanvas ArgCanvas) Writer() io.Writer {
-	return os.Stdout
+	return argCanvas.writer
 }
 
 
 func CanvasFromArgs(args cli.Args, writer io.Writer) Canvas {
     return ArgCanvas{
         args: args,
-        writer: writer
+        writer: writer,
     }
 }
 
@@ -45,8 +45,8 @@ func FitImageToCanvas(img image.Image, canvas Canvas) [][]float64 {
 	imgWidth := img.Bounds().Dx()
 	imgHeight := img.Bounds().Dy()
 	canvasWidth, canvasHeight := canvas.WidthHeight()
-	imageWidthSmallerThanCanvasWidth := imgWidth < canvasWidth
-	imageHeightSmallerThanCanvasHeight := imgHeight < canvasHeight
+	imageWidthSmallerThanCanvasWidth := imgWidth < int(canvasWidth)
+	imageHeightSmallerThanCanvasHeight := imgHeight < int(canvasHeight)
 
 	// if the image is too big, resize it
 	if !(imageHeightSmallerThanCanvasHeight && imageWidthSmallerThanCanvasWidth) {

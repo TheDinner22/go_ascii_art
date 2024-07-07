@@ -3,63 +3,66 @@ package cli
 import (
 	"flag"
 	"log"
+	"math"
+	"path"
 )
-
-type percent uint8
-
-func toPercent(num *int) percent{
-    if *num > 100 {
-        log.Fatalf("Width and height cannot be greater than 100 or less than 0.")
-    }
-    return percent(*num)
-}
 
 type outputMode string
 
 func toOutputMode(s *string) outputMode {
-    switch *s {
-    case "terminal":
-        return outputMode(*s)
-    case "file":
-        return outputMode(*s)
-    }
+	switch *s {
+	case "terminal":
+		return outputMode(*s)
+	case "file":
+		return outputMode(*s)
+	}
 
-    log.Fatalf("%s is not a valid output mode.", *s)
-    return outputMode("unreachable") // some reason go requires this :(
+	log.Fatalf("%s is not a valid output mode.", *s)
+	return outputMode("unreachable") // some reason go requires this :(
 }
-
 
 // where to output
 // % width
 // % height
 type Args struct {
-    width percent
-    height percent
-    output outputMode
-    pixelWidth *uint // using ptr's here so these can be nil (using the ptr like an option)
-    pixelHeight *uint
+	Width  uint
+	Height uint
+	Output outputMode
+	Src    string
 }
 
-func GetArgs() Args{
-    arg_width := flag.Int("width", 100, "Value from 0-100 inclusive. Width of the image. A width of 0 means preserve aspect ratio with respect to the specified height.")
-    arg_height := flag.Int("height", 100, "Value from 0-100 inclusive. Height of the image. A height of 0 means preserve aspect ratio with respect to the specified width.")
-    arg_output := flag.String("output", "terminal", "Where to output/write the ascii image (terminal|file).")
+func GetArgs() Args {
+	// TODO what to do with these for optional stuff
+	arg_width := flag.Uint(
+		"width",
+		math.MaxUint,
+		"Width of the out put image (in pixels). A width of 0 means preserve aspect ratio with respect to the specified height. Both width and height cannot be 0.",
+	)
 
-    arg_pixelHeight := flag.Uint("PHeight", 0, "Height of the output in pixel's")
-    arg_pixelWidth := flag.Uint("PWidth", 0, "")
+	arg_height := flag.Uint(
+		"width",
+		math.MaxUint,
+		"Height of the out put image (in pixels). A height of 0 means preserve aspect ratio with respect to the specified width. Both width and height cannot be 0.",
+	)
 
-    // scaling func
-    // char set
-    // img path
-    // verbose mode
+	arg_output := flag.String("o", "terminal", "Where to output/write the ascii image (terminal|file).")
 
-    width := toPercent(arg_width)
-    height := toPercent(arg_height)
-    output := toOutputMode(arg_output)
+	arg_src_path := flag.String("img", "images/UF.png", "Source image to be converted to ascii. Path relative to go.mod for this module.")
 
-    return Args{
-    	width:  width,
-    	height: height,
-    	output: output,
-    }
+	// scaling func
+	// char set
+	// img path
+	// verbose mode
+
+	flag.Parse()
+
+	output := toOutputMode(arg_output)
+
+	return Args{
+		Width:  *arg_width,
+		Height: *arg_height,
+		Output: output,
+		Src:    path.Clean(*arg_src_path),
+	}
 }
+

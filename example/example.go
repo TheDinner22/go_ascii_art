@@ -1,11 +1,13 @@
 package main
 
 import (
-    imageReader "github.com/TheDinner22/go_ascii_art/image_reader"
-    imageDisplayer "github.com/TheDinner22/go_ascii_art/image_displayer"
-    imageProcessor "github.com/TheDinner22/go_ascii_art/image_processor"
-    canvas "github.com/TheDinner22/go_ascii_art/canvas"
-    cli "github.com/TheDinner22/go_ascii_art/cli"
+	"log"
+
+	canvas "github.com/TheDinner22/go_ascii_art/canvas"
+	cli "github.com/TheDinner22/go_ascii_art/cli"
+	imageDisplayer "github.com/TheDinner22/go_ascii_art/image_displayer"
+	imageProcessor "github.com/TheDinner22/go_ascii_art/image_processor"
+	imageReader "github.com/TheDinner22/go_ascii_art/image_reader"
 )
 
 func main(){
@@ -16,12 +18,14 @@ func main(){
     //img, err := imageReader.LoadFromFile("images/dog.jpg")
     //img, err := imageReader.LoadFromFile("images/mon.jpeg")
     //img, err := imageReader.LoadFromFile("images/goku.jpeg")
-    img, err := imageReader.LoadFromFile("images/builder.jpeg")
+    //img, err := imageReader.LoadFromFile("images/builder.jpeg")
+    img, err := imageReader.LoadFromFile(args.Src)
     if err != nil {
-        panic(err.Error())
+        log.Fatal(err.Error())
     }
 
-    term := canvas.GetCanvas(args)
+    term := canvas.CanvasFromArgs(args, nil)
+
     bm := canvas.FitImageToCanvas(img, term)
 
     chars := imageProcessor.MapBrightnessMatrixToChars(bm)

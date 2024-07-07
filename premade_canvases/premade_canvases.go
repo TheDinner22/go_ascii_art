@@ -9,14 +9,15 @@ import (
 // TODO crash if not a terminal as stdout
 type Terminal struct{}
 
-func (terminal Terminal) WidthHeight() (int, int) {
+func (terminal Terminal) WidthHeight() (uint, uint) {
 	width, height, err := term.GetSize(int(os.Stdout.Fd()))
 	if err != nil {
 		panic(err.Error())
 	}
-	return width, height
+	return uint(width), uint(height)
 }
 
 func (terminal Terminal) Writer() io.Writer {
 	return os.Stdout
 }
+
