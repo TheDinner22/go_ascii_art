@@ -5,9 +5,12 @@ import (
     imageDisplayer "github.com/TheDinner22/go_ascii_art/image_displayer"
     imageProcessor "github.com/TheDinner22/go_ascii_art/image_processor"
     canvas "github.com/TheDinner22/go_ascii_art/canvas"
+    cli "github.com/TheDinner22/go_ascii_art/cli"
 )
 
 func main(){
+    args := cli.GetArgs()
+
     //img, err := imageReader.LoadFromFile("images/UF.png")
     //img, err := imageReader.LoadFromFile("images/mom.jpg")
     //img, err := imageReader.LoadFromFile("images/dog.jpg")
@@ -18,7 +21,7 @@ func main(){
         panic(err.Error())
     }
 
-    term := canvas.Terminal{}
+    term := canvas.GetCanvas(args)
     bm := canvas.FitImageToCanvas(img, term)
 
     chars := imageProcessor.MapBrightnessMatrixToChars(bm)
